@@ -1,10 +1,10 @@
-package com.example.tobysspring.user.dao;
+package com.example.tobysspring.user.dao.v1;
 
 import com.example.tobysspring.user.domain.User;
 
 import java.sql.*;
 
-public class UserDao {
+public abstract class UserDao {
 
     public void add(User user) throws ClassNotFoundException, SQLException {
         Connection c = getConnection();
