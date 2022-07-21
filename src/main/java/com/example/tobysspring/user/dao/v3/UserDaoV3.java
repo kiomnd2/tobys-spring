@@ -1,13 +1,22 @@
-package com.example.tobysspring.user.dao.v1;
+package com.example.tobysspring.user.dao.v3;
 
 import com.example.tobysspring.user.domain.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class UserDao {
+public class UserDaoV3 {
+
+    private ConnectionMaker connectionMaker;
+
+    public UserDaoV3(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection c = getConnection();
+        Connection c = connectionMaker.makeNewConnection();
 
         PreparedStatement ps = c.prepareStatement("insert into users(id, name, password) values(?,?,?)");
         ps.setString(1, user.getId());
@@ -21,7 +30,7 @@ public class UserDao {
     }
 
     public User get(String id) throws SQLException, ClassNotFoundException {
-        Connection c = getConnection();
+        Connection c = connectionMaker.makeNewConnection();
 
         PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
@@ -37,12 +46,5 @@ public class UserDao {
         ps.close();
         c.close();
         return user;
-    }
-
-    private Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("org.h2.Driver"); // 클래스 호출
-        Connection c = DriverManager.getConnection(
-                "jdbc:h2:~/test", "sa", "");
-        return c;
     }
 }

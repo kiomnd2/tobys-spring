@@ -1,10 +1,10 @@
-package com.example.tobysspring.user.dao.v1;
+package com.example.tobysspring.user.dao.v2;
 
 import com.example.tobysspring.user.domain.User;
 
 import java.sql.*;
 
-public class UserDao {
+public abstract class UserDaoV2 {
 
     public void add(User user) throws ClassNotFoundException, SQLException {
         Connection c = getConnection();
@@ -39,10 +39,5 @@ public class UserDao {
         return user;
     }
 
-    private Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("org.h2.Driver"); // 클래스 호출
-        Connection c = DriverManager.getConnection(
-                "jdbc:h2:~/test", "sa", "");
-        return c;
-    }
+    protected abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }
