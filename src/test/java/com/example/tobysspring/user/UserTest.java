@@ -4,6 +4,7 @@ import com.example.tobysspring.user.dao.v1.UserDao;
 import com.example.tobysspring.user.dao.v3.ConnectionMaker;
 import com.example.tobysspring.user.dao.v3.DaoFactory;
 import com.example.tobysspring.user.dao.v3.UserDaoV3;
+import com.example.tobysspring.user.dao.v4.CountingConnectionMaker;
 import com.example.tobysspring.user.dao.v4.UserDaoV4;
 import com.example.tobysspring.user.domain.User;
 import org.junit.jupiter.api.Test;
@@ -89,5 +90,15 @@ public class UserTest {
         ApplicationContext context = new AnnotationConfigApplicationContext(com.example.tobysspring.user.dao.v4.DaoFactory.class);
         UserDaoV4 dao = context.getBean("userDao", UserDaoV4.class);
         
+    }
+
+    @Test
+    void userDaoConnectionCountingTest() throws Exception{
+        ApplicationContext context = new AnnotationConfigApplicationContext(com.example.tobysspring.user.dao.v4.DaoFactory.class);
+        UserDaoV4 daoV4 = context.getBean("userDao", UserDaoV4.class);
+
+        CountingConnectionMaker ccm = context.getBean("connectionMaker", CountingConnectionMaker.class);
+        ccm.makeNewConnection();
+        System.out.println("ccm.getCount() = " + ccm.getCount());
     }
 }
