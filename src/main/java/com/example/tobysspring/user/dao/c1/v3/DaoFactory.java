@@ -1,10 +1,7 @@
-package com.example.tobysspring.user.dao.v3;
-
-import com.example.tobysspring.user.dao.v1.UserDao;
+package com.example.tobysspring.user.dao.c1.v3;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class DaoFactory {
     public  UserDaoV3 userDao() {

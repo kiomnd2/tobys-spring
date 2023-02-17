@@ -1,6 +1,4 @@
-package com.example.tobysspring.user.dao.v2;
-
-import com.example.tobysspring.user.dao.v1.UserDao;
+package com.example.tobysspring.user.dao.c1.v2;
 
 import java.sql.Connection;
 import java.sql.SQLException;

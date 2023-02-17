@@ -1,4 +1,4 @@
-package com.example.tobysspring.user.dao.v4;
+package com.example.tobysspring.user.dao.c1.v4;
 
 import com.example.tobysspring.user.domain.User;
 

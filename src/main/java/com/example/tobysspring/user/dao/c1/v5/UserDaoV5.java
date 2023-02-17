@@ -1,13 +1,23 @@
-package com.example.tobysspring.user.dao.v2;
+package com.example.tobysspring.user.dao.c1.v5;
 
 import com.example.tobysspring.user.domain.User;
 
-import java.sql.*;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public abstract class UserDaoV2 {
+public class UserDaoV5 {
+
+    private DataSource dataSource;
+
+    public UserDaoV5(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection c = getConnection();
+        Connection c= dataSource.getConnection();
 
         PreparedStatement ps = c.prepareStatement("insert into users(id, name, password) values(?,?,?)");
         ps.setString(1, user.getId());
@@ -21,7 +31,7 @@ public abstract class UserDaoV2 {
     }
 
     public User get(String id) throws SQLException, ClassNotFoundException {
-        Connection c = getConnection();
+        Connection c= dataSource.getConnection();
 
         PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
@@ -38,6 +48,4 @@ public abstract class UserDaoV2 {
         c.close();
         return user;
     }
-
-    protected abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }
